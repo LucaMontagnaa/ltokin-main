@@ -1,4 +1,39 @@
-//#region
+window.addEventListener("load", () => {
+    webgazer.setGazeListener(function (data, elapsedTime) {
+        if (data == null) {
+            return;
+        }
+        var xprediction = data.x; //these x coordinates are relative to the viewport
+        var yprediction = data.y; //these y coordinates are relative to the viewport
+        console.log(xprediction, yprediction);
+    }).begin();
+
+    setInterval(async () => {
+        let data = await webgazer.getCurrentPrediction();
+        console.log(data);
+    }, 1000);
+});
+
+// Seleccion de botones
+const botones = document.querySelectorAll ("button")
+
+// Deteccion de eye tracker sobre boton
+const isHovered = (e, cursor_x, cursor_y) => {
+    if (data.x === e.pos.x && data.y === e.pos.y) {
+        return true
+    } else {
+        return false
+    }
+}
+
+// Filtro del tipo de boton y ejecucion de su respectiva funcinalidad
+botones.forEach ((e) => {
+    if (isHovered (e, data.x, data.y)) {
+        e.mouseenter;
+    } else {
+        e.mouseleave;
+    }
+})
 
 //var elemento = document.getElementById("btnA");
 //var posicion = elemento.getBoundingClientRect();
