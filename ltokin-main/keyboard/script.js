@@ -1,4 +1,4 @@
-window.addEventListener("load", () => {
+/*window.addEventListener("load", () => {
     webgazer.setGazeListener(function (data, elapsedTime) {
         if (data == null) {
             return;
@@ -13,30 +13,32 @@ window.addEventListener("load", () => {
         console.log(data);
     }, 1000);
 });
+*/
 
+/*
+pruebax = 200
+pruebay = 140
+ 
 // Seleccion de botones
 const botones = document.querySelectorAll ("button")
 
 // Deteccion de eye tracker sobre boton
 const isHovered = (e, cursor_x, cursor_y) => {
-    if (data.x === e.pos.x && data.y === e.pos.y) {
-        return true
-    } else {
-        return false
-    }
+    const pos = e.getBoundingClientRect();
+    return (cursor_x > pos.left && cursor_x <= pos.right && cursor_y > pos.top && cursor_y <= pos.bottom);
 }
 
 // Filtro del tipo de boton y ejecucion de su respectiva funcinalidad
 botones.forEach ((e) => {
-    if (isHovered (e, data.x, data.y)) {
-        e.mouseenter;
+    if (isHovered(e, pruebax, pruebay)) {
+        e.mouseEnter();
     } else {
-        e.mouseleave;
+        e.mouseLeave();
     }
-})
+})*/
 
-//var elemento = document.getElementById("btnA");
-//var posicion = elemento.getBoundingClientRect();
+// var elemento = document.getsElementById("btnA");
+// var posicion = elemento.getBoundingClientRect();
 
 //console.log(posicion.top, posicion.right, posicion.bottom, posicion.left);
 
@@ -138,6 +140,13 @@ for (let i = 0; i < inicio.length; i++) {
     inicio[i].addEventListener("mouseleave", handleLeave)
 }
 
+let btnenter = document.getElementsByClassName ("done")
+
+for (let i = 0; i < btnenter.length; i++) {
+    console.log(btnenter[i])
+    btnenter[i].addEventListener("mouseenter", done)
+    btnenter[i].addEventListener("mouseleave", handleLeave)
+}
 //Funciones
 //let txtArea = document.getElementById("textArea")
 
@@ -161,6 +170,27 @@ function handleEnter(e) {
     setTimeout(() => {
         if(onButton === e.target){
             texto.value = texto.value + e.target.innerHTML;
+        }
+    }, 2000);
+}
+
+function handleSubmit(e) {
+    onButton = e.target;
+    setTimeout(() => {
+        if(onButton === e.target){
+            let voices = window.speechSynthesis.getVoices()
+            msg.voice = voices[2]
+            msg.text = texto.value
+            speakData.lang = 'es';
+            window.speechSynthesis.speak(msg)
+        }
+    }, 2000);
+}
+
+function done (e){
+    onButton = e.target;
+    setTimeout(() => {
+        if(onButton === e.target){
             let voices = window.speechSynthesis.getVoices()
             msg.voice = voices[10]
             msg.text = texto.value
@@ -169,8 +199,6 @@ function handleEnter(e) {
         }
     }, 2000);
 }
-
-
 
 function espacio (a) {
     onButton = a.target;
